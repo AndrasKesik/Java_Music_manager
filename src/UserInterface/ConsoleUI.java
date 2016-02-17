@@ -12,7 +12,9 @@ public class ConsoleUI {
     public static void main(String[] args){
         askForNumberOFPieces();
         askForMp3File();
-        
+        MP3Splitter.makeDir();
+        //MP3Splitter.makePieces();
+
 
     }
 
@@ -38,6 +40,7 @@ public class ConsoleUI {
             return false;
         }
     }
+
     private static boolean askForNumberOFPieces(){
         Scanner scanner = new Scanner(System.in);
         System.out.printf("Number of pieces: ");
@@ -51,11 +54,11 @@ public class ConsoleUI {
 
     }
 	
-	private static void askForM3UName(){
-		Scanner scanner = new Scanner(System.in);
-        System.out.printf("The name of the m3u: ");
-		M3UCreator.setResultName(scanner.nextLine());			
-	}
+//	private static void askForM3UName(){
+//		Scanner scanner = new Scanner(System.in);
+//        System.out.printf("The name of the m3u: ");
+//		M3UCreator.setResultName(scanner.nextLine());
+//	}
 
 
 }
