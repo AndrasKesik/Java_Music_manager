@@ -22,8 +22,16 @@ public class MP3Splitter {
         String name = mp3File.getName();
         return name.substring(0,name.length()-4);}
 
-    public void dispatch(String pathOfFolder){
+    public void dispatch(File pathOfFolder) {
+        File[] files = pathOfFolder.listFiles();
+        for (File file : files) {
+            System.out.println(file.getAbsolutePath());
+        }
     }
+
+
+
+
 
     public void makeDir(){}
 
