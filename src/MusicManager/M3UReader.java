@@ -1,7 +1,6 @@
 package MusicManager;
 
 import java.io.File;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class M3UReader {
@@ -19,16 +18,18 @@ public class M3UReader {
         stringToFile(givenPath);
     }
 
-    static boolean checkIfFileExist(File m3uFile) {
-        if (!m3uFile.exists()) {
-            System.err.println("The file doesn't exists.");
-            return false;
-        } else return true;
-    }
-
     static void stringToFile(String filePath) {
         File m3uFile = new File(filePath);
-        checkIfFileExist(m3uFile);
+        checkIfItIsM3U(m3uFile);
+    }
+
+    static boolean checkIfItIsM3U(File m3uFile) {
+        if (m3uFile.exists() && m3uFile.isFile() && m3uFile.getName().endsWith(".m3u")) {
+            return true;
+        } else {
+            System.out.println("File not exist or file is not an m3u file.");
+            return false;
+        }
     }
 
     public static void main(String[] args) {
