@@ -41,6 +41,9 @@ local.properties
 *.pydevproject
 
 # CDT-specific (C/C++ Development Tooling)
+
+.idea/
+.idea/*
 .cproject
 
 # JDT-specific (Eclipse Java Development Tools)
