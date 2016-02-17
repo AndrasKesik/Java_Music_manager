@@ -31,8 +31,11 @@ public class MP3Splitter {
         }
     }
 
-    public void makeDir(){}
-
+    public static void makeDir(){
+        String dirName = getFileNameWithoutExtension() + "_" + numberOfPieces;
+        newFolder = mp3File.getParent()+"\\"+dirName;
+        File dir = new File(newFolder);
+        dir.mkdir();
     }
 
 //    public static void makePieces(){
