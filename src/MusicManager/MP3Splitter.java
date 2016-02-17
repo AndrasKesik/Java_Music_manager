@@ -4,9 +4,9 @@ import java.io.File;
 
 public class MP3Splitter {
 
-    private static File mp3File;
+    public static File mp3File;
     private static String fileName;
-    private static int numberOfPieces;
+    public static int numberOfPieces;
 
     private MP3Splitter(){}
 

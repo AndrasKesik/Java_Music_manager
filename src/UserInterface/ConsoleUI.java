@@ -10,7 +10,9 @@ public class ConsoleUI {
 
 
     public static void main(String[] args){
+        askForNumberOFPieces();
         askForMp3File();
+        
 
     }
 
@@ -35,6 +37,18 @@ public class ConsoleUI {
             System.out.println("File not exist or file is not an mp3 file.");
             return false;
         }
+    }
+    private static boolean askForNumberOFPieces(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.printf("Number of pieces: ");
+        if(scanner.hasNextInt()){
+            MP3Splitter.setNumberOfPieces(scanner.nextInt());
+            return true;
+        }else{
+            System.out.println("That is not a number.");
+            return false;
+        }
+
     }
 
 
