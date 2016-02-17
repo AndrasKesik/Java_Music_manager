@@ -50,6 +50,12 @@ public class ConsoleUI {
         }
 
     }
+	
+	private static void askForM3UName(){
+		Scanner scanner = new Scanner(System.in);
+        System.out.printf("The name of the m3u: ");
+		M3UCreator.setResultName(scanner.nextLine());			
+	}
 
 
 }
