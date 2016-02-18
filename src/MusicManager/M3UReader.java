@@ -1,52 +1,71 @@
 package MusicManager;
 
 import java.io.*;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class M3UReader {
-    public String pathOfM3U;
+    private static final String FILE_NOT_EXISTS = "\tFile not exists.";
+    public File m3uFile;
+    public List<String> m3uContent = new ArrayList<>();
+    public List<File> mp3FileList = new ArrayList<>();
 
-    public void setPathOfM3U(String pathOfM3U) {
-        this.pathOfM3U = pathOfM3U;
+    public M3UReader(File m3uFile) {
+        this.m3uFile = m3uFile;
     }
 
-    public static void getPathOfM3UFromConsole(M3UReader reader) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the M3U files absolute path: ");
-        String givenPath = scanner.nextLine();
-        reader.setPathOfM3U(givenPath);
-        printContent(givenPath);
+    public void setM3uFile(File m3uFile) {
+        this.m3uFile = m3uFile;
     }
 
-    static void printContent(String filePath) {
-        File m3uFile = new File(filePath);
+    public List<File> getMp3FileList() {
+        return mp3FileList;
+    }
+
+    private void readAllLinesFromM3u() throws IOException {
+        String m3uLines;
+        BufferedReader br = new BufferedReader(new FileReader(m3uFile));
+        while ((m3uLines = br.readLine()) != null) {
+            m3uContent.add(m3uLines);
+        }
+        br.close();
+    }
+
+    public List<String> returnFileList() {
         try {
-            checkIfItIsM3U(m3uFile);
+            this.readAllLinesFromM3u();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    static boolean checkIfItIsM3U(File m3uFile) throws IOException {
-        if (m3uFile.exists() && m3uFile.isFile() && m3uFile.getName().toLowerCase().endsWith(".m3u")) {
-            readFromM3U(m3uFile);
-            return true;
-        } else {
-            System.out.println("File not exist or file is not an m3u file.");
-            return false;
-        }
-    }
-
-    static void readFromM3U(File m3uFile){
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(m3uFile));
-            String strLine;
-            while ((strLine = br.readLine()) != null) {
-                System.out.println(strLine);
+        List<String> formattedM3u = new ArrayList<>();
+        String concatenated;
+        for (String m3uLine : m3uContent) {
+            if (!m3uLine.startsWith("#")) {
+                if (!m3uLine.matches(".:")) {
+                    concatenated = m3uFile.getParent() + "file.separator" + m3uLine;
+                    if (!checkIfFileExists(concatenated))
+                        concatenated += FILE_NOT_EXISTS;
+                    else {
+                        mp3FileList.add(new File(concatenated));
+                    }
+                } else {
+                    concatenated = m3uLine;
+                    if (!checkIfFileExists(concatenated))
+                        concatenated += FILE_NOT_EXISTS;
+                    else {
+                        mp3FileList.add(new File(concatenated));
+                    }
+                }
+                formattedM3u.add(concatenated);
             }
-            br.close();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        return formattedM3u;
     }
+
+    private boolean checkIfFileExists(String path) {
+        File file = new File(path);
+        return file.exists();
+    }
+
+
 }
