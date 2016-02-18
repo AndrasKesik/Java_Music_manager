@@ -10,15 +10,10 @@ public class ConsoleUI {
 
 
     public static void main(String[] args){
-        askForNumberOFPieces();
-        askForMp3File();
-////        askForM3UName();
-////
-        MP3Splitter.makeDir();
-        MP3Splitter.makePieces();
-
-//        MP3Splitter.dispatch();
-
+        //askForNumberOFPieces();
+        //askForMp3File();
+        askForM3UName();
+        
 
     }
 

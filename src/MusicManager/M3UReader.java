@@ -58,10 +58,4 @@ public class M3UReader {
             e.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        M3UReader reader = new M3UReader();
-        getPathOfM3UFromConsole(reader);
-    }
-
 }
