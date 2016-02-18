@@ -47,10 +47,12 @@ public class GUI extends Frame implements ActionListener,WindowListener {
 	    	frame.dispose();	
 		}
 		else if (e.getSource()==btnM3UReader){
-			
+			GUIReader readerwindow = new GUIReader();
+			frame.dispose();
 		}
 		else if (e.getSource()==btnMP3Splitter){
-			
+			GUIMP3Splitter splitterwindow = new GUIMP3Splitter();
+			frame.dispose();
 		}
 	}
 	@Override
