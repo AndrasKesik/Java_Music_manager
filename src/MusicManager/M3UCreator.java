@@ -1,34 +1,35 @@
 package MusicManager;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.List;
 
 public class M3UCreator {
-	public String resultName;
-	public ArrayList<File> fileList;
+	public String absolutePath;
+	public List<File> fileList;
 	
-	public M3UCreator(ArrayList<File> fileList) {
+	public M3UCreator(List<File> fileList) {
 		this.fileList = fileList;
-		String absolutePath=fileList.get(0).getParent();
+		this.absolutePath=fileList.get(0).getParent();
 	}
 	
-	public String setResultName(String resultName,String absolutePath){
-		absolutePath+="\\";
-		absolutePath+=resultName;
-		absolutePath+=".m3u";
-		String writeOut;
-		File m3uFile=new File(absolutePath);
+	public String getResultName(String resultName,String absolutePath){
+		if (absolutePath==null){
+		this.absolutePath+="\\";
+		this.absolutePath+=resultName;
+		this.absolutePath+=".m3u";
+		}
+		else{
+			this.absolutePath=absolutePath;
+		}
+		File m3uFile=new File(this.absolutePath);
 		if (m3uFile.exists()){
-			return writeOut="There is a list with this name";
+			return "There is a list with this name";
 		}
 		else{
 			writeM3U(m3uFile);
-			return writeOut=(absolutePath);
+			return this.absolutePath;
 		}
 	}
 	
@@ -45,7 +46,7 @@ public class M3UCreator {
 		finally{
 			try {
 				w.close();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}		

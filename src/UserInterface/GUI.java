@@ -15,9 +15,9 @@ public class GUI extends Frame implements ActionListener,WindowListener {
 	 private Button btnM3UCreator; 
 	 private Button btnM3UReader;
 	 private Button btnMP3Splitter;
-	
+	 private JFrame frame;
 	public GUI(){
-		JFrame frame = new JFrame("Menu");
+		frame = new JFrame("Menu");
 		 frame.setVisible(true);
 		 frame.setSize(300, 200);;
 		 frame.setLayout(null);
@@ -32,17 +32,26 @@ public class GUI extends Frame implements ActionListener,WindowListener {
 		 btnMP3Splitter.setBounds(210, 40, 80, 80);// construct Button
 		 frame.add(btnMP3Splitter);
 		 btnM3UCreator.addActionListener(this);
-		 btnM3UCreator.addMouseListener(new MouseAdapter() {
-	    	    @Override
-	    	    public void mouseClicked(MouseEvent e) {
-	    	    	GUICreator creatorwindow=new GUICreator();
-	    	    	frame.dispose();
-	    	    }
-	    	});// "super" Frame shows
+		 btnM3UReader.addActionListener(this);
+		 btnMP3Splitter.addActionListener(this);
 	    }
 	public static void main(String[] args) {
 		GUI menuwindow=new GUI();
 		
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnM3UCreator)
+		{
+			GUICreator creatorwindow=new GUICreator();
+	    	frame.dispose();	
+		}
+		else if (e.getSource()==btnM3UReader){
+			
+		}
+		else if (e.getSource()==btnMP3Splitter){
+			
+		}
 	}
 	@Override
 	public void windowOpened(WindowEvent e) {
@@ -77,10 +86,6 @@ public class GUI extends Frame implements ActionListener,WindowListener {
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
 		
 	}
 }

@@ -95,7 +95,7 @@ public class GUICreator extends Frame implements ActionListener,WindowListener {
                 File file = choosenMP3s.getSelectedFile();
                 String path=file.getParent();
                 M3UCreator creator=new M3UCreator(fileList);
-                successedOrNot.setText(creator.setResultName(askingForName.getText(),path));
+                successedOrNot.setText(creator.getResultName(askingForName.getText(),path));
 			}
 		}
 	}	
