@@ -8,6 +8,8 @@ public class MP3Splitter {
     private int numberOfPieces;
     private String newFolder;
 
+    public  MP3Splitter(){}
+
     public MP3Splitter(File mp3File, int numberOfPieces) {
         this.mp3File = mp3File;
         this.numberOfPieces = numberOfPieces;
@@ -28,9 +30,9 @@ public class MP3Splitter {
     public void dispatch() {
         File newFolderDir = new File(newFolder);
         File[] files = newFolderDir.listFiles();
+        System.out.println("...Done");
         for (File file : files) {
-            System.out.println(file.getAbsolutePath());
-        }
+            System.out.println(file.getAbsolutePath());}
     }
 
     public void makeDir(){
@@ -45,22 +47,21 @@ public class MP3Splitter {
         int[] sliceEdges = new int[numberOfPieces+1];
         for(int i = 0; i<=numberOfPieces; i++){
             sliceEdges[i]= (i*pieceSize);
-            System.out.println(sliceEdges[i]);
         }
-
         try {
             FileInputStream fis = new FileInputStream(mp3File);
             byte[] b = new byte[(int)mp3File.length()];
             fis.read(b);
             for(int i =1; i<=numberOfPieces;i++) {
-                FileOutputStream fos = new FileOutputStream(newFolder + File.separator + getFileNameWithoutExtension()
-                        + "_" + "part" + "_" + i + ".mp3");
+                FileOutputStream fos = new FileOutputStream(nameOfPart(i));
                 fos.write(b,sliceEdges[i-1], pieceSize);
                 fos.close();
             }
         } catch (Exception e) {
             e.printStackTrace();}
-
     }
 
+    private String nameOfPart(int number){
+        return newFolder + File.separator + getFileNameWithoutExtension() + "_" + "part" + "_" + number + ".mp3";
+    }
 }

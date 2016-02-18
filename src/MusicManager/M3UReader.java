@@ -50,9 +50,3 @@ public class M3UReader {
         }
     }
 }
-
-/* m3ureader kap egy m3u fájlt,
-* getFileList - listaként visszaadja a benne lévő fájlokat
-* listán végig for-ral. ha nem exist, akkor warn.
-* csak a fájlneveket írja.
- */
