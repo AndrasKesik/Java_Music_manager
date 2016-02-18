@@ -13,12 +13,12 @@ public class ConsoleUI {
 
         //askForM3UName();
 
-        MP3Splitter m = new MP3Splitter();
-        askForNumberOFPieces(m);
-        askForMp3File(m);
-        m.makeDir();
-        m.makePieces();
-        m.dispatch();
+       // MP3Splitter m = new MP3Splitter();
+        // askForNumberOFPieces(m);
+        //askForMp3File(m);
+        //m.makeDir();
+        //m.makePieces();
+        //m.dispatch();
         
 
     }
@@ -57,7 +57,6 @@ public class ConsoleUI {
         }
 
     }
-    private static
 
 //	private static void askForM3UName(){
 //        M3UReader reader = new M3UReader();
