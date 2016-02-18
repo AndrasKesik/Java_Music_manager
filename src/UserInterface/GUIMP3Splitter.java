@@ -65,7 +65,7 @@ public class GUIMP3Splitter extends Frame implements ActionListener,WindowListen
 			int returnVal = choosenMP3.showOpenDialog(GUIMP3Splitter.this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
             	File file = choosenMP3.getSelectedFile();
-            	if(file.isFile() && file.getName().toLowerCase().endsWith(".mp3")){
+            	if( file.getName().endsWith(".mp3")){
                 	openedFile.setText(file.getName());
                 	splitMP3.enable();
                 	theChoosenOne=file;

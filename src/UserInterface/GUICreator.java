@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -28,8 +29,8 @@ public class GUICreator extends Frame implements ActionListener,WindowListener {
 	 private Button btnSave;
 	 private Button btnAdd;
 	 private Button btnClear;
-	 public ArrayList<File> fileList;
-	 private Label successedOrNot;
+	 public List<File> fileList;
+	 private TextField successedOrNot;
 	 JFileChooser choosenMP3s;
 	
 	public GUICreator(){
@@ -48,7 +49,7 @@ public class GUICreator extends Frame implements ActionListener,WindowListener {
 		 btnSave=new Button("Save");
 		 btnSave.setBounds(10,40,50,20);
 		 frame.add(btnSave);
-		 successedOrNot=new Label("");
+		 successedOrNot=new TextField("");
 		 successedOrNot.setBounds(70, 40, 200, 20);
 		 frame.add(successedOrNot);
 		 mp3FileList=new TextArea();
@@ -63,8 +64,10 @@ public class GUICreator extends Frame implements ActionListener,WindowListener {
 		 btnAdd.addActionListener(this);
 		 btnClear.addActionListener(this);
 		 btnSave.addActionListener(this);
+		 btnSave.disable();
 		 choosenMP3s=new JFileChooser();
 		 fileList=new ArrayList<>();
+		 fileList.add(null);
 	}
 		 
 	@Override
@@ -74,20 +77,20 @@ public class GUICreator extends Frame implements ActionListener,WindowListener {
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = choosenMP3s.getSelectedFile();
-                String extension = file.getName().substring(file.getName().lastIndexOf(".") + 1, file.getName().length());
-                String mp3="mp3";
-                if (!mp3.equals(extension)){
+                if( !file.getName().endsWith(".mp3")){
                 	JOptionPane.showMessageDialog(null, "Choose an mp3 file!");
                 }
                 else{
                 fileList.add(file);
-                mp3FileList.append(file.getName()+System.lineSeparator());}
+                mp3FileList.append(file.getName()+System.lineSeparator());
+                btnSave.enable();}
                 //This is where a real application would open the file.                
             }
 		}
 		else if (e.getSource() == btnClear){
-			mp3FileList.setText("");
-			fileList=null;
+			mp3FileList.setText(" ");
+			fileList=new ArrayList<>();
+			btnSave.disable();
 		}
 		else if (e.getSource()==btnSave){
 			int returnVal = choosenMP3s.showSaveDialog(GUICreator.this);
