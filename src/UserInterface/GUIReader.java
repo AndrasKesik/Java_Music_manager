@@ -39,6 +39,7 @@ public class GUIReader extends Frame implements ActionListener,WindowListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		mp3s.setText(" ");
 		int returnVal = choosenM3U.showOpenDialog(GUIReader.this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -63,7 +64,7 @@ public class GUIReader extends Frame implements ActionListener,WindowListener{
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
+		GUI menuwindow=new GUI();
 		
 	}
 

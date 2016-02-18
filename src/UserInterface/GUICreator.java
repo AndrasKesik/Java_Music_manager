@@ -30,7 +30,6 @@ public class GUICreator extends Frame implements ActionListener,WindowListener {
 	 private Button btnAdd;
 	 private Button btnClear;
 	 public List<File> fileList;
-	 private TextField successedOrNot;
 	 JFileChooser choosenMP3s;
 	
 	public GUICreator(){
@@ -49,9 +48,6 @@ public class GUICreator extends Frame implements ActionListener,WindowListener {
 		 btnSave=new Button("Save");
 		 btnSave.setBounds(10,40,50,20);
 		 frame.add(btnSave);
-		 successedOrNot=new TextField("");
-		 successedOrNot.setBounds(70, 40, 200, 20);
-		 frame.add(successedOrNot);
 		 mp3FileList=new TextArea();
 		 mp3FileList.setBounds(10,70,200,180);
 		 frame.add(mp3FileList);
@@ -67,7 +63,6 @@ public class GUICreator extends Frame implements ActionListener,WindowListener {
 		 btnSave.disable();
 		 choosenMP3s=new JFileChooser();
 		 fileList=new ArrayList<>();
-		 fileList.add(null);
 	}
 		 
 	@Override
@@ -98,7 +93,7 @@ public class GUICreator extends Frame implements ActionListener,WindowListener {
                 File file = choosenMP3s.getSelectedFile();
                 String path=file.getParent();
                 M3UCreator creator=new M3UCreator(fileList);
-                successedOrNot.setText(creator.getResultName(askingForName.getText(),path));
+                JOptionPane.showMessageDialog(null, creator.getResultName(askingForName.getText(),path));
 			}
 		}
 	}	

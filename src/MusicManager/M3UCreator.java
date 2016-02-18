@@ -16,21 +16,22 @@ public class M3UCreator {
 	
 	public String getResultName(String resultName,String absolutePath){
 		if (absolutePath==null){
-		this.absolutePath+="\\";
-		this.absolutePath+=resultName;
-		this.absolutePath+=".m3u";
 		}
 		else{
 			this.absolutePath=absolutePath;
 		}
+		this.absolutePath+="\\";
+		this.absolutePath+=resultName;
+		this.absolutePath+=".m3u";
 		File m3uFile=new File(this.absolutePath);
 		if (m3uFile.exists()){
 			return "There is a list with this name";
 		}
 		else{
 			writeM3U(m3uFile);
-			return this.absolutePath;
+			return "Created here:" +this.absolutePath;
 		}
+		
 	}
 	
 	public void writeM3U(File m3uFile){

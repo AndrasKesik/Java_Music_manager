@@ -86,7 +86,7 @@ public class GUIMP3Splitter extends Frame implements ActionListener,WindowListen
 			splitter.makeDir();
 			splitter.makePieces();
 			String theFolder=splitter.getNewFolder();			
-			JOptionPane.showMessageDialog(null, theFolder);
+			JOptionPane.showMessageDialog(null,"Created at: "+ theFolder);
 			Desktop.getDesktop().open(new File(theFolder));
 			frame.dispose();
 			GUI menuwindow=new GUI();
