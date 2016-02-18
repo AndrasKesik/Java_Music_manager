@@ -14,20 +14,21 @@ public class M3UCreator {
 	
 	public M3UCreator(ArrayList<File> fileList) {
 		this.fileList = fileList;
+		String absolutePath=fileList.get(0).getParent();
 	}
 	
-	public void setResultName(String resultName){
-		String absolutePath=fileList.get(0).getParent();
+	public String setResultName(String resultName,String absolutePath){
 		absolutePath+="\\";
 		absolutePath+=resultName;
 		absolutePath+=".m3u";
+		String writeOut;
 		File m3uFile=new File(absolutePath);
 		if (m3uFile.exists()){
-			System.out.println("There is a list with this name");
+			return writeOut="There is a list with this name";
 		}
 		else{
-			System.out.println(absolutePath);
 			writeM3U(m3uFile);
+			return writeOut=(absolutePath);
 		}
 	}
 	
