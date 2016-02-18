@@ -41,8 +41,8 @@ public class M3UReader {
         String concatenated;
         for (String m3uLine : m3uContent) {
             if (!m3uLine.startsWith("#")) {
-                if (!m3uLine.matches(".:")) {
-                    concatenated = m3uFile.getParent() + "file.separator" + m3uLine;
+                if (m3uLine.matches(".[^:]")) {
+                    concatenated = m3uFile.getParent() + System.lineSeparator() + m3uLine;
                     if (!checkIfFileExists(concatenated))
                         concatenated += FILE_NOT_EXISTS;
                     else {
