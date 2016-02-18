@@ -8,7 +8,11 @@ public class MP3Splitter {
     private int numberOfPieces;
     private String newFolder;
 
-    public  MP3Splitter(){}
+    public String getNewFolder() {
+		return newFolder;
+	}
+
+	public  MP3Splitter(){}
 
     public MP3Splitter(File mp3File, int numberOfPieces) {
         this.mp3File = mp3File;
@@ -36,10 +40,14 @@ public class MP3Splitter {
     }
 
     public void makeDir(){
-        String dirName = getFileNameWithoutExtension() + "_" + numberOfPieces;
-        newFolder = mp3File.getParent()+"\\"+dirName;
         File dir = new File(newFolder);
         dir.mkdir();
+    }
+    
+    public boolean isDiractoryExists(){
+        String dirName = getFileNameWithoutExtension() + "_" + numberOfPieces;
+        newFolder = mp3File.getParent()+"\\"+dirName;
+        return new File(newFolder).exists();
     }
 
     public void makePieces(){
