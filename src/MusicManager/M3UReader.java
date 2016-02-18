@@ -15,10 +15,10 @@ public class M3UReader {
         System.out.print("Enter the M3U files absolute path: ");
         String givenPath = scanner.nextLine();
         reader.setPathOfM3U(givenPath);
-        stringToFile(givenPath);
+        printContent(givenPath);
     }
 
-    static void stringToFile(String filePath) {
+    static void printContent(String filePath) {
         File m3uFile = new File(filePath);
         try {
             checkIfItIsM3U(m3uFile);
@@ -28,7 +28,7 @@ public class M3UReader {
     }
 
     static boolean checkIfItIsM3U(File m3uFile) throws IOException {
-        if (m3uFile.exists() && m3uFile.isFile() && m3uFile.getName().endsWith(".m3u")) {
+        if (m3uFile.exists() && m3uFile.isFile() && m3uFile.getName().toLowerCase().endsWith(".m3u")) {
             readFromM3U(m3uFile);
             return true;
         } else {
@@ -37,25 +37,22 @@ public class M3UReader {
         }
     }
 
-    static void readFromM3U(File m3uFile) throws UnsupportedEncodingException {
+    static void readFromM3U(File m3uFile){
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(m3uFile), "UTF-8"));
+            BufferedReader br = new BufferedReader(new FileReader(m3uFile));
             String strLine;
-            try {
-                while ((strLine = br.readLine()) != null) {
-                    System.out.println(strLine);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            while ((strLine = br.readLine()) != null) {
+                System.out.println(strLine);
             }
-            try {
-                br.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found. ");
+            br.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
+
+/* m3ureader kap egy m3u fájlt,
+* getFileList - listaként visszaadja a benne lévő fájlokat
+* listán végig for-ral. ha nem exist, akkor warn.
+* csak a fájlneveket írja.
+ */
