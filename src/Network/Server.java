@@ -67,7 +67,8 @@ public class Server {
                         mp3Splitter.makeDirectory(savedFile, parts);
                         mp3Splitter.makePieces();
                         List<File> fileList = mp3Splitter.getPartFilesList();
-                        System.out.println(fileList);
+                        System.out.println(fileList.get(0));
+                        System.out.println(fileList.size());
 
                         for(File f:fileList){
                             sendFile(f);
@@ -141,9 +142,6 @@ public class Server {
             DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());
             FileInputStream fis = new FileInputStream(file);
             byte[] buffer = new byte[4096];
-//            while (fis.read(buffer) > 0) {
-//                dos.write(buffer);
-//            }
             int read;
             long remaining = file.length();
             while ((read = fis.read(buffer, 0, Math.min(buffer.length, (int) remaining))) > 0) {
