@@ -1,6 +1,7 @@
 package Network;
 
 import MusicManager.M3UCreator;
+import MusicManager.M3UReader;
 import MusicManager.MP3Splitter;
 import common.Command;
 
@@ -40,13 +41,13 @@ public class Server {
                         Command command = (Command) inputObject;
 
                         if (command.equals(Command.SPLIT)) {
-                            System.out.println("SPLIT");
+                            System.out.printf("SPLIT: ");
                             split();
                         } else if (command.equals(Command.READ)) {
-                            System.out.println("READ");
-                            read();
+                            System.out.printf("READ: ");
+                            read(ois);
                         } else if (command.equals(Command.CREATE)) {
-                            System.out.println("CREATE");
+                            System.out.printf("CREATE: ");
                             create(ois);
                         } else if (command.equals(Command.EXIT)){
                             break;
@@ -77,25 +78,30 @@ public class Server {
         mp3Splitter.makeDirectory(savedFile, parts);
         mp3Splitter.makePieces();
         List<File> fileList = mp3Splitter.getPartFilesList();
+        System.out.printf(" %d ",fileList.size());
         System.out.println(savedFile);
-        System.out.println(fileList.size());
-
         for(File f:fileList){
             sendFile(f);
         }
 
     }
-    private void read(){
-//        try {
-//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-//            String line;
-//            while((line = bufferedReader.readLine()) != null){
-//                System.out.println(line);
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+    private void read(ObjectInputStream objectInputStream){
+        try {
+            String tempFile = "C:\\new\\temp\\temp.m3u";
+            String m3uContent = (String)objectInputStream.readObject();
+            FileWriter fw = new FileWriter(tempFile);
+            fw.write(m3uContent);
+            fw.close();
 
+            M3UReader m3UReader = new M3UReader(new File(tempFile));
+            m3UReader.returnFileList();
+            List<File> fileList = m3UReader.getMp3FileList();
+            ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
+            oos.writeObject(fileList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     private void create(ObjectInputStream objectInputStream){
         try {
