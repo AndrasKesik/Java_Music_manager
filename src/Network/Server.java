@@ -1,5 +1,6 @@
 package Network;
 
+import MusicManager.M3UCreator;
 import MusicManager.MP3Splitter;
 import common.Command;
 
@@ -46,15 +47,17 @@ public class Server {
                             read();
                         } else if (command.equals(Command.CREATE)) {
                             System.out.println("CREATE");
-                            create();
+                            create(ois);
+                        } else if (command.equals(Command.EXIT)){
+                            break;
                         }
                     }
                 }
             }
 
-//            clientSocket.close();
-//            System.out.println("- Disconnected: " + clientSocket.getInetAddress());
-//            System.out.println("---------------------------------------------------");
+            clientSocket.close();
+            System.out.println("- Disconnected: " + clientSocket.getInetAddress());
+            System.out.println("---------------------------------------------------");
 
 
         }catch(Exception e){
@@ -82,7 +85,6 @@ public class Server {
         }
 
     }
-
     private void read(){
 //        try {
 //            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -95,7 +97,24 @@ public class Server {
 //        }
 
     }
-    private void create(){}
+    private void create(ObjectInputStream objectInputStream){
+        try {
+            Object o;
+            if(!((o = objectInputStream.readObject()) instanceof List)){
+                System.out.println("Not a list");
+                return;
+            }
+
+            List<File> fileList = (List)o;
+            System.out.println(fileList);
+            M3UCreator m3UCreator = new M3UCreator(fileList);
+            ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
+            oos.writeObject(m3UCreator.getFilesAsString());
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     private File saveFile() {
