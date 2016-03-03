@@ -48,11 +48,13 @@ public class MP3Splitter {
             e.printStackTrace();}
     }
 
-    public String getFileNameWithoutExtension(){
+
+
+    private String getFileNameWithoutExtension(){
         String name = mp3File.getName();
         return name.substring(0,name.length()-4);}
 
-    public String nameOfPart(int number){
+    private String nameOfPart(int number){
         return newFolder + File.separator + getFileNameWithoutExtension() + "_" + "part" + "_" + number + ".mp3";
     }
 }

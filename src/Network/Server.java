@@ -23,40 +23,38 @@ public class Server {
         try {
             serverSocket = new ServerSocket(port);
             System.out.println("Server started...");
-            clientSocket = serverSocket.accept();
 
+            clientSocket = serverSocket.accept();
             System.out.println("---------------------------------------------------");
             System.out.println("+ Connection successful from: " + clientSocket.getInetAddress());
             ois = new ObjectInputStream(clientSocket.getInputStream());
 
-            Object inputObject;
+            Object inputObject=null;
             while (true) {
-                try {
+
+                if(ois.read()>-1) {
                     inputObject = ois.readObject();
-                } catch (Exception e) {
-                    System.out.println("ObjectInputStream is empty. Disconnecting client...");
-                    break;
-                }
 
-                if (inputObject instanceof Command) {
-                    Command command = (Command) inputObject;
+                    if (inputObject instanceof Command) {
+                        Command command = (Command) inputObject;
 
-                    if (command.equals(Command.SPLIT)) {
-                        System.out.println("SPLIT");
-                        split();
-                    } else if (command.equals(Command.READ)) {
-                        System.out.println("READ");
-                        read();
-                    } else if (command.equals(Command.CREATE)) {
-                        System.out.println("CREATE");
-                        create();
+                        if (command.equals(Command.SPLIT)) {
+                            System.out.println("SPLIT");
+                            split();
+                        } else if (command.equals(Command.READ)) {
+                            System.out.println("READ");
+                            read();
+                        } else if (command.equals(Command.CREATE)) {
+                            System.out.println("CREATE");
+                            create();
+                        }
                     }
                 }
             }
 
-            clientSocket.close();
-            System.out.println("- Disconnected: " + clientSocket.getInetAddress());
-            System.out.println("---------------------------------------------------");
+//            clientSocket.close();
+//            System.out.println("- Disconnected: " + clientSocket.getInetAddress());
+//            System.out.println("---------------------------------------------------");
 
 
         }catch(Exception e){
@@ -84,16 +82,17 @@ public class Server {
         }
 
     }
+
     private void read(){
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String line;
-            while((line = bufferedReader.readLine()) != null){
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+//            String line;
+//            while((line = bufferedReader.readLine()) != null){
+//                System.out.println(line);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
     }
     private void create(){}
@@ -115,9 +114,6 @@ public class Server {
                 remaining -= read;
                 fos.write(buffer, 0, read);
             }
-//            fos.close();
-//            dis.close();
-//            ois.close();
         } catch (Exception e) {
             System.out.println("File save error");
         }
@@ -139,8 +135,7 @@ public class Server {
                 remaining -= read;
                 dos.write(buffer, 0, read);
             }
-//            oos.close();
-//            socket.close();
+
         } catch (IOException e) {
             System.err.println("sendFile");
         }
