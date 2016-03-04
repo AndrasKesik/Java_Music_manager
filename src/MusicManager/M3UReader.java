@@ -44,15 +44,17 @@ public class M3UReader {
             if (!m3uLine.startsWith("#")) {
                 if (m3uLine.matches(".[^:]")) {
                     concatenated = m3uFile.getParent() + System.lineSeparator() + m3uLine;
-                    if (!checkIfFileExists(concatenated))
-                        concatenated += FILE_NOT_EXISTS;
+                    if (!checkIfFileExists(concatenated)){
+                        mp3FileList.add(new File(concatenated));
+                        concatenated += FILE_NOT_EXISTS;}
                     else {
                         mp3FileList.add(new File(concatenated));
                     }
                 } else {
                     concatenated = m3uLine;
-                    if (!checkIfFileExists(concatenated))
-                        concatenated += FILE_NOT_EXISTS;
+                    if (!checkIfFileExists(concatenated)){
+                        mp3FileList.add(new File(concatenated));
+                        concatenated += FILE_NOT_EXISTS;}
                     else {
                         mp3FileList.add(new File(concatenated));
                     }

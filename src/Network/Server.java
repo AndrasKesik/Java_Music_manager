@@ -44,10 +44,10 @@ public class Server {
                             System.out.printf("SPLIT: ");
                             split();
                         } else if (command.equals(Command.READ)) {
-                            System.out.printf("READ: ");
+                            System.out.println("READ");
                             read(ois);
                         } else if (command.equals(Command.CREATE)) {
-                            System.out.printf("CREATE: ");
+                            System.out.println("CREATE");
                             create(ois);
                         } else if (command.equals(Command.EXIT)){
                             break;
@@ -96,6 +96,7 @@ public class Server {
             M3UReader m3UReader = new M3UReader(new File(tempFile));
             m3UReader.returnFileList();
             List<File> fileList = m3UReader.getMp3FileList();
+            System.out.println(fileList);
             ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
             oos.writeObject(fileList);
 
